@@ -47,29 +47,38 @@
               </tr>
               <tr>
                 <td>Object Class</td>
-                <td>
-                  <select style="border: none; outline: 0px; width: 150px">
-                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.class == 'CAR'">
-                      {{ Object_cla.class }}
-                    </option>
-                  </select>
-                </td>
+                <td>    <select style="border: none; outline:0px;width : 150px">
+                  <option *ngFor="let Object_cla of Object_class"
+                  [selected]="Object_cla.objectClass == 'CAR'">{{Object_cla.objectClass}}  </option>
+                 </select></td>
               </tr>
               <tr>
                 <td>POSE</td>
-                <td>None</td>
+                <td>    <select style="border: none; outline:0px;width : 150px">
+                  <option *ngFor="let Object_cla of Object_class"
+                  [selected]="Object_cla.pose == 'Left'">{{Object_cla.pose}}  </option>
+                 </select></td>
               </tr>
               <tr>
                 <td>Occlusion</td>
-                <td>None</td>
+                <td>    <select style="border: none; outline:0px;width : 150px">
+                  <option *ngFor="let Object_cla of Object_class"
+                  [selected]="Object_cla.occlusion == 'none'">{{Object_cla.occlusion}}  </option>
+                 </select></td>
               </tr>
               <tr>
                 <td>Lane Change</td>
-                <td>False</td>
+                <td>    <select style="border: none; outline:0px;width : 150px">
+                  <option *ngFor="let Object_cla of Object_class"
+                  [selected]="Object_cla.lane_change == 'False'">{{Object_cla.lane_change}}  </option>
+                 </select></td>
               </tr>
               <tr>
                 <td>Break Light</td>
-                <td>False</td>
+                <td>    <select style="border: none; outline:0px;width : 150px">
+                  <option *ngFor="let Object_cla of Object_class"
+                  [selected]="Object_cla.breakLight == 'False'">{{Object_cla.breakLight}}  </option>
+                 </select></td>
               </tr>
             </tbody>
           </table>
@@ -85,28 +94,46 @@
           </thead>
           <tbody>
             <tr>
-              <td>Ligth Condition</td>
-              <td>Day</td>
+              <td>Light Condition</td>
+              <td><select style="border: none; outline:0px;width : 150px">
+                <option *ngFor="let scene_lev of Scene_level"
+                [selected]="scene_lev.objectClass == 'Day'">{{scene_lev.Light_Condition}}  </option>
+               </select></td>
             </tr>
             <tr>
               <td>Road Type</td>
-              <td>Highway</td>
+              <td><select style="border: none; outline:0px;width : 150px">
+                <option *ngFor="let scene_lev of Scene_level"
+                [selected]="scene_lev.objectClass == 'Highway'">{{scene_lev.Road_Type}}  </option>
+               </select></td>
             </tr>
             <tr>
               <td>Road_works</td>
-              <td>False</td>
+              <td><select style="border: none; outline:0px;width : 150px">
+                <option *ngFor="let scene_lev of Scene_level"
+                [selected]="scene_lev.objectClass == 'True'">{{scene_lev.Road_works}}  </option>
+               </select></td>
             </tr>
             <tr>
               <td>Tunnel</td>
-              <td>False</td>
+              <td><select style="border: none; outline:0px;width : 150px">
+                <option *ngFor="let scene_lev of Scene_level"
+                [selected]="scene_lev.objectClass == 'False'">{{scene_lev.Tunnel}}  </option>
+               </select></td>
             </tr>
             <tr>
               <td>Weather</td>
-              <td>Dry</td>
+              <td><select style="border: none; outline:0px;width : 150px">
+                <option *ngFor="let scene_lev of Scene_level"
+                [selected]="scene_lev.objectClass == 'Sunny'">{{scene_lev.Weather}}  </option>
+               </select></td>
             </tr>
             <tr>
               <td>Street Condition</td>
-              <td>Dry</td>
+              <td><select style="border: none; outline:0px;width : 150px">
+                <option *ngFor="let scene_lev of Scene_level"
+                [selected]="scene_lev.objectClass == 'Dry'">{{scene_lev.Street_Condition}}  </option>
+               </select></td>
             </tr>
           </tbody>
         </table>

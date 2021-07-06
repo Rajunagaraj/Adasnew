@@ -33,17 +33,46 @@ export class Shape {
   styleUrls: ["./annotation.component.scss"],
 })
 export class AnnotationComponent implements OnInit {
+  Object_class:any;
+  Scene_level: any;
+  current_user: any;
   svg: any;
   selectedShape: any;
   shapeValue: string;
   selectedTool: ToolType;
   isSelectingPoints: boolean = false;
   public search: any = "";
+  object_Category = [
+    {
+      colorbox: "pink",
+      Category: "Ignore",
+      count: 0,
+    },
+    {
+      colorbox: "green",
+      Category: "Motor Bike",
+      count: 2,
+    },
+    {
+      colorbox: "red",
+      Category: "Passenger",
+      count: 1,
+    },
+    {
+      colorbox: "pink",
+      Category: "Pedestrain",
+      count: 3,
+    },
+    {
+      colorbox: "pink",
+      Category: "Vehicle",
+      count: 4,
+    },
+  ];
   horizontalPosition: any = "7083c - 720g";
   @ViewChild("videoPlayer", { static: false }) videoplayer: ElementRef;
   isPlay: boolean = false;
   @ViewChild("myPinch", { static: false }) myPinch;
-  Object_class = [{ class: "CAR" }, { class: "TRUCK" }, { class: "Vehicle" }];
   zoomIn() {
     this.myPinch.zoomIn();
   }
@@ -84,35 +113,27 @@ export class AnnotationComponent implements OnInit {
     video.currentTime = 0;
   }
   constructor(private api: ApiService) { }
-  object_Category = [
-    {
-      colorbox: "pink",
-      Category: "Ignore",
-      count: 0,
-    },
-    {
-      colorbox: "green",
-      Category: "Motor Bike",
-      count: 2,
-    },
-    {
-      colorbox: "red",
-      Category: "Passenger",
-      count: 1,
-    },
-    {
-      colorbox: "pink",
-      Category: "Pedestrain",
-      count: 3,
-    },
-    {
-      colorbox: "pink",
-      Category: "Vehicle",
-      count: 4,
-    },
-  ];
-
-  current_user: any;
+  type = "rectangle";
+  ngOnInit() {
+    this.Get_login_details();
+    this.GetObjectLevel();
+    this.GetSceneLevel();
+    //draw image on canvas
+    this.setType("rectangle");
+  }
+  
+  GetObjectLevel():void {
+    this.api.GetObjectLevels().subscribe((results) => {
+      this.Object_class = results;
+      console.log(this.Object_class,"##")
+    });
+  }
+  GetSceneLevel():void {
+    this.api.GetSceneLevels().subscribe((results) => {
+      this.Scene_level = results;
+      console.log(this.Scene_level,"##")
+    });
+  }
   Get_login_details(): void {
     this.api.Currentuser.subscribe((results) => {
       this.current_user = results;
@@ -127,12 +148,7 @@ export class AnnotationComponent implements OnInit {
     console.log("selected shape:", this.shapeValue);
   }
 
-  type = "rectangle";
-  ngOnInit() {
-    this.Get_login_details();
-    //draw image on canvas
-    this.setType("rectangle");
-  }
+ 
   @Input() shapesToDraw: Shape[] = [];
   shapeType = "rectangle";
   setType(type: string) {
