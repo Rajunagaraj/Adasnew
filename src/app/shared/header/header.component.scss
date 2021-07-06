@@ -1,0 +1,36 @@
+.header-navbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+    background: #0A1F33;
+    color: #fff;
+    
+}
+.flex-spacer{
+    flex:1;
+}
+.adas-logo{
+    height: 44px;
+    margin: 0 4px 3px 0;
+    border-radius: 50%;
+}
+.notification-style{
+    color: #A3B5BF;
+}
+.mat-badge-content{
+    // background: #7FAF1C;
+    top:-11px;
+    right: -11px;
+}
+.drop-icon{
+    top:7px;
+    position: absolute;
+}
+button.mat-menu-item{
+    padding-right: 75px;
+    padding-left: 30px;
+}
+button{
+    outline: none;
+}

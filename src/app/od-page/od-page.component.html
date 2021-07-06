@@ -1,0 +1,165 @@
+<app-header></app-header>
+<div class="container-fluid" id="main">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div
+      class="col-md-3 col-lg-2 sidebar-offcanvas bg-dark_1 pl-0 side1"
+      id="sidebar"
+      role="navigation"
+    >
+      <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/OD_Page" routerLinkActive="active"
+            >Task List</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="#"
+            data-target="#myModal"
+            data-toggle="modal"
+            >Settings</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="" data-target="#myModal" data-toggle="modal"
+            >Help</a
+          >
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link" (click)="Logout();" style="cursor: pointer;"
+              >Logout</a
+            >
+          </li>
+      </ul>
+    </div>
+    <div class="col main">
+      <div class="tasksHeader">
+        <ul class="tasksItems">
+          <li><a>Main/Tasklist</a></li>
+          <li><a>Task Count: {{Taskfile_list?.length}}</a></li>
+          <li><a>Export</a></li>
+          <li><button (click)="Reset();">Refresh</button></li>
+        </ul>
+      </div>
+      <div class="col-md-12 taskSelect">
+        <!-- <form> -->
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="file">Task File Filter</label>
+            <select class="form-control" id="file" (change)="File_number()" [(ngModel)]="File_Names">
+                <option value="" disabled selected>Please select File Number</option>
+               <option *ngFor="let File_num of File_Name_Number" [attr.data-value]="File_num">{{File_num}}</option>
+             </select>
+          </div>
+        
+          <div class="form-group col-md-3">
+            <label for="prior">Priority</label>
+            <select class="form-control" id="prior" (change)="priority_number()" [(ngModel)]="Prioritys">
+                <option value="" disabled selected>Please select priority</option>
+                <option *ngFor="let Priority_v of Priority_level" [attr.data-value]="Priority_v.Priority">{{Priority_v.Priority}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="createdDate">Created Date</label>
+            <input
+              type="date"
+              class="form-control"
+              placeholder="Date"
+              id="birthday"
+              name="createdDate" (input)="created_date()" [(ngModel)]="createddate"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="status">Status</label>
+            <select class="form-control" (change)="status_changes()" [(ngModel)]="Status" id="status">
+                <option value="" disabled selected>Please select Status</option>
+                <option *ngFor="let Status_level_v of Status_level" [attr.data-value]="Status_level_v.status">{{Status_level_v.status}}</option>
+            </select>
+          </div>
+          
+       </div>
+    <!-- </form> -->
+      </div>
+      <div class="container taskTable pt-5 mt-2">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="table_header">
+              <th scope="col">Sl NO</th>
+              <th scope="col">File Name</th>
+              <th scope="col">Project Name</th>
+              <th scope="col">Task Level</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Created Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table_header1"  *ngFor="let record of filterdOptions; let srn=index">
+              <th scope="row">{{srn+1}}</th>
+              <td>{{record.File_Name}}</td>
+              <td>{{record.project_Name}}</td>
+              <td>{{record.Task_level}}</td>
+              <td>{{record.Priority}}</td>
+              <td>{{record.Created_Date}}</td>
+              <td> <strong [ngClass]="{'text1':record.status == 'Ready','text2':record.status=='InProgress','text3':record.status=='Completed'}">{{record.status}}</strong></td>
+              <td>
+                <div>
+                  <button type="button" class="btn btn-info btn-sm">
+                    {{"Reassign"}}
+                  </button>
+                  <button type="button" (click)="annotation_go();" [ngClass]="{'btn1':record.Action =='START','btn2':record.Action=='Continue','btn3':record.Action=='Done'}"
+                  class="btn btn-danger btn-sm">
+                    {{record.Action}}
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/.container--><br>
+<footer class="container-fluid footer">
+  <span style="color:#fff" class="footer_text">©2021-2022 LTTS</span>
+</footer>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 style="color: red">Page is in Progress</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary-outline"
+          data-dismiss="modal"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

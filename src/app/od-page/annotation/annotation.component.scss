@@ -1,0 +1,248 @@
+.crossicon {
+  height: 100%;
+  width: 2px;
+  margin-left: -1px;
+  z-index: 1;
+}
+// .crossicon {
+//   width: 100%;
+//   height: 2px;
+//   margin-top: -1px;
+//   z-index: 1;
+// }
+.hair {
+  position: absolute;
+  background-color: rgba(221, 35, 35, 0.5);
+  box-shadow: 0 0 5px rgb(192, 17, 17);
+  pointer-events: none;
+}
+.projectHeader {
+  background: #56545a;
+  border: 1px solid gray;
+  // margin-top: -18px;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+}
+.alter {
+  background-color: #56545a !important;
+}
+.projectItems {
+  display: flex;
+  justify-content: space-around;
+  margin: auto 0;
+}
+.projectItems li {
+  list-style: none;
+  color: #fff;
+  margin-right: 15px;
+}
+.projectItems li a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+.ProjectContent-left {
+  background: dimgray;
+  color: white;
+  height: 85vh;
+}
+.ProjectContent-left .tab-content.tab-space {
+  margin-left: -14px;
+  margin-right: -15px;
+}
+.TabsContent {
+  background: dimgray;
+  color: white;
+  // height: 55vh;
+}
+.ProjectContent-right .tab-content.tab-space {
+  margin: 20px;
+}
+
+.ProjectContent-left ul.nav.nav-pills li {
+  /* margin: 10px;
+    border: 1px solid #007bff;
+    border-radius: 10px; */
+  margin-left: -14px;
+  width: 51%;
+}
+.projectItems-left li {
+  padding-right: 10px;
+  border-right: 1px solid white;
+}
+
+.ProjectContent-left ul.nav.nav-pills li a,
+.ProjectContent-right ul.nav.nav-pills li {
+  color: white;
+}
+.ProjectContent-right ul.nav.nav-pills {
+  height: 20px;
+}
+.ProjectContent-right ul.nav.nav-pills li.nav-item {
+  width: 33.3%;
+}
+.ProjectContent-right ul.nav.nav-pills li a {
+  font-size: 11px;
+  color: #fff;
+  padding: 11px 0px 7px 4px;
+  height: 40px;
+}
+/* .search-container {
+    float: right;
+  } */
+.tab-content > .active {
+  display: flex;
+  flex-direction: column;
+}
+input[type="text"] {
+  padding: 6px;
+  font-size: 16px;
+  border: 2px solid black;
+  width: 260px;
+  margin-left: -26px;
+}
+.search-container {
+  width: 281px;
+  margin-left: 6px;
+}
+.search-container button {
+  // float: right;
+  padding: 8px 10px;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+.box {
+  border-bottom: 1px dashed;
+}
+.categoryList {
+  margin-left: -58px;
+  margin-right: -19px;
+}
+.categoryList ul li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  color: gray;
+  padding: 5px 10px;
+  border: 2px solid #fff;
+}
+.annotaionTools {
+  border: 1px solid gray;
+  // min-height: 257px;
+  margin: -19px auto;
+  // height: 250px;
+}
+svg {
+  background: whitesmoke;
+  width: 100%;
+  height: 900px;
+  border: 1px solid black;
+}
+
+.header {
+  background-color: #f0f5e1;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.draggable {
+  cursor: move;
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+h1 {
+  color: #0a0f04;
+  padding-top: 20px;
+}
+
+.shape {
+  margin: 5px 1px 5px 10px;
+}
+
+
+
+.toolbar {
+  background-color: whitesmoke;
+  margin: 0;
+}
+
+.color-text {
+  font-weight: bolder;
+  color: white;
+}
+
+.panel-body:target {
+  height: auto;
+}
+.panel-body select {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  background-color: #eee;
+}
+
+.panel-heading .accordion-toggle:after {
+  font-family: FontAwesome;
+  content: "\f068";
+  float: right;
+  // margin: 0;
+  margin-top: -28px;
+}
+
+.panel-heading .accordion-toggle.collapsed:after {
+  float: right !important;
+  content: "\f067";
+  margin-top: -28px;
+}
+
+.panel-title {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: #212529;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  font-family: FontAwesome;
+  font-size: 18px;
+  margin-bottom: 1px;
+  padding: 10px 10px;
+}
+
+.panel-title:hover {
+  background-color: #212529;
+}
+
+.panel-title a {
+  text-decoration: none;
+  color: white;
+}
+
+.panel-title > a:hover,
+.panel-title > a:active,
+.panel-title > a:focus {
+  text-decoration: none;
+}
+.shapeCanvas {
+  height: 400px;
+  border: solid;
+  border-color: lightgrey;
+}
+
+.shape {
+  fill-opacity: 0;
+  stroke: black;
+  stroke-width: 1;
+}

@@ -1,0 +1,27 @@
+
+.projectSelect {
+    margin: auto;
+}
+.load{
+    margin: 100px;
+    button{
+        padding: 10px 40px;
+        border-radius: 10px;
+    }
+}
+button{
+    outline: none;
+}
+
+.taskSelect .form-group{
+    position: relative;
+    top:20px;
+}
+.taskSelect .form-group label{
+    // position: absolute;
+    // background: #fff;
+    // padding: 0 10px;
+    // left: 28px;
+    // bottom: 20px;
+    // color: #007bff;
+}

@@ -1,0 +1,41 @@
+<nav class="header-navbar">
+    <a
+      mat-button=""
+      aria-label="ADAS"
+      class="mat-focus-indicator mat-button mat-button-base"
+      tabindex="0"
+      aria-describedat="false"
+      href="#"
+    >
+      <span class="mat-button-wrapper">
+        <!-- <img src="../assets/logo.png" alt="ADAS" class="adas-logo"> -->
+        <span>ADAS</span>
+      </span>
+    </a>
+    <div class="flex-spacer"></div>
+    <a
+      mat-button=""
+      href=""
+      aria-label="Notifications"
+      class="mat-focus-indicator mat-button mat-button-base"
+      aria-disabled="false"
+    >
+      <span class="mat-button-wrapper">
+        <mat-icon matBadge="2" matBadgeColor="warn" class="notification-style"
+          >notifications</mat-icon
+        >
+      </span>
+    </a>
+  
+    <button mat-button [matMenuTriggerFor]="belowMenu">
+      <span class="mat-button-wrapper">
+        <!-- <img src="../assets/logo.png" alt="ADAS" class="adas-logo"> -->
+        <span><i class="fa fa-fw fa-user"></i>Welcome to {{current_user?.username}}</span
+        ><mat-icon class="drop-icon">arrow_drop_down</mat-icon>
+      </span>
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below" xPosition="before">
+      <button mat-menu-item>Settings</button>
+      <button mat-menu-item (click)="Logout();">Logout</button>
+    </mat-menu>
+</nav>

@@ -1,0 +1,162 @@
+/* Styles go here */
+
+body,
+html {
+  height: 100%;
+}
+.side1 {
+  height: 101vh;
+}
+.navbar-dark.navbar-nav .nav-link .Welcome {
+  color: #fff;
+}
+.bg-dark_1 {
+  background-color: #0a1f33;
+}
+footer {
+  // position: absolute;
+  bottom: 0;
+  background: #56545a;
+  // transform: translateX(-40%);
+}
+.footer .footer_text {
+  margin-left: 574px;
+}
+#sidebar ul li a {
+  color: #fff;
+}
+.tasksHeader {
+  background: #f1f1f1;
+  //   border: 1px solid gray;
+}
+.tasksItems {
+  display: flex;
+  justify-content: space-around;
+  margin: auto 0;
+  padding: 10px;
+}
+.tasksHeader ul li {
+  list-style: none;
+  color: #405dc2;
+}
+.tasksHeader ul li a:hover {
+  text-decoration: none;
+  color: rgb(182, 165, 165);
+  cursor: pointer;
+}
+.taskSelect .form-group {
+  position: relative;
+  top: 20px;
+}
+.taskSelect .form-group label {
+  position: absolute;
+  background: #fff;
+  padding: 0 10px;
+  left: 28px;
+  bottom: 20px;
+  color: #007bff;
+}
+.taskTable table td .btn {
+  border-radius: 20px;
+}
+.taskTable table td .btn-danger {
+  border-radius: 20px;
+  padding: 5px 20px;
+}
+.table_header {
+  background-color: #fafafa;
+  text-align: center;
+}
+.table_header1 {
+  text-align: center;
+}
+.btn1 {
+  background-color: #e42020;
+}
+.btn2 {
+  background-color: #007bff;
+}
+.btn3 {
+  background-color: #20e472;
+}
+.text1 {
+    color: #e42020;;
+  }
+  .text2 {
+    color: #007bff;;
+  }
+.text3 {
+    color: #20e472;;
+  }
+/*
+   * Off Canvas sidebar at medium breakpoint
+   * --------------------------------------------------
+   */
+@media screen and (max-width: 992px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  .row-offcanvas-left .sidebar-offcanvas {
+    left: -33%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 33%;
+    margin-left: -6px;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    height: 100%;
+  }
+}
+
+/*
+   * Off Canvas wider at sm breakpoint
+   * --------------------------------------------------
+   */
+@media screen and (max-width: 34em) {
+  .row-offcanvas-left .sidebar-offcanvas {
+    left: -45%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 45%;
+    margin-left: -6px;
+  }
+
+  .sidebar-offcanvas {
+    width: 45%;
+  }
+}
+
+.card {
+  overflow: hidden;
+}
+
+.card-body .rotate {
+  z-index: 8;
+  float: right;
+  height: 100%;
+}
+
+.card-body .rotate i {
+  color: rgba(20, 20, 20, 0.15);
+  position: absolute;
+  left: 0;
+  left: auto;
+  right: -10px;
+  bottom: 0;
+  display: block;
+  -webkit-transform: rotate(-44deg);
+  -moz-transform: rotate(-44deg);
+  -o-transform: rotate(-44deg);
+  -ms-transform: rotate(-44deg);
+  transform: rotate(-44deg);
+}

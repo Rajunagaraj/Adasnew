@@ -1,0 +1,239 @@
+<app-header></app-header>
+<div class="projectHeader">
+  <ul class="projectItems">
+    <ol class="d-flex alter">
+      <li class="breadcrumb-item"><a href="#">Project Name</a></li>
+      <li class="breadcrumb-item"><a href="#">Package Name</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Video Name</li>
+    </ol>
+  </ul>
+  <ul class="projectItems projectItems-right">
+    <li><a href="#" (click)="$event.preventDefault()">Save Task</a></li>
+    <li></li>
+    <li><a href="#" (click)="$event.preventDefault()">Export</a></li>
+    <li>
+      <a routerLink="/Task_list"><i class="fa fa-list"></i>Go To Tasklist</a>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="col-lg-3 col-md-3 ProjectContent-left">
+    <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="#objectLevel" role="tab" data-toggle="tab">
+          Object Level
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#sceneLevel" role="tab" data-toggle="tab">
+          Scene Level
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content tab-space">
+      <div class="tab-pane active" id="objectLevel" style="background-color: #fff">
+        <form>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Attributes</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Track ID</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Object Class</td>
+                <td>
+                  <select style="border: none; outline: 0px; width: 150px">
+                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.class == 'CAR'">
+                      {{ Object_cla.class }}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>POSE</td>
+                <td>None</td>
+              </tr>
+              <tr>
+                <td>Occlusion</td>
+                <td>None</td>
+              </tr>
+              <tr>
+                <td>Lane Change</td>
+                <td>False</td>
+              </tr>
+              <tr>
+                <td>Break Light</td>
+                <td>False</td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div class="tab-pane" id="sceneLevel" style="background-color: #fff">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Attributes</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ligth Condition</td>
+              <td>Day</td>
+            </tr>
+            <tr>
+              <td>Road Type</td>
+              <td>Highway</td>
+            </tr>
+            <tr>
+              <td>Road_works</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td>Tunnel</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td>Weather</td>
+              <td>Dry</td>
+            </tr>
+            <tr>
+              <td>Street Condition</td>
+              <td>Dry</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 ProjectContent-center">
+    <div id="instructions">
+      <pinch-zoom #myPinch="pinchZoom">
+        <svg class="shapeCanvas" [ngClass]="{'crossicon':shapeValue == 'Rectangle'}" (mousedown)="startDrawing($event)" (mouseup)="stopDrawing($event)"
+          (mousemove)="keepDrawing($event)">
+            <image  x="0" y="0" width="745" height="400" xlink:href="assets/images/annotate.jpeg"></image>
+          <ng-container *ngFor="let shape of shapesToDraw">
+            <rect class="shape" *ngIf="shape.type=='rectangle'" [style.stroke-width]="shape==(currentShape|async)?2:1"
+              [attr.x]="shape.x" [attr.y]="shape.y" [attr.width]="shape.w" [attr.height]="shape.h"
+              (click)="mouseDown($event,shape)" (keydown)="Move(shape, 'UP')" (keyup)="Move(shape, 'LEFT')"
+              (keydown)="Move(shape, 'DOWN')" (keydown)="Move(shape, 'RIGHT')">
+            </rect>
+            <text *ngIf="shape.w>0" [attr.x]="shape.x" [attr.y]="shape.y" dominant-baseline="top"
+              text-anchor="left">{{"car"}}</text>
+          </ng-container>
+        </svg>
+      </pinch-zoom>
+      <button (click)="playPause()">Play/Pause</button>
+      <button (click)="makeSmall()">Small</button>
+      <button (click)="makeNormal()">Normal</button>
+      <button (click)="restart()">Restart</button>
+      <button (click)="skip(-10)">Rewind</button>
+      <button (click)="skip(10)">Fastforward</button>
+      <button (click)="zoomIn()">zoomIn</button>
+      <button (click)="zoomOut()">zoomOut</button>
+    </div>
+  </div>
+  <div class="col-md-3 ProjectContent-right">
+    <div class="TabsContent">
+      <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" title="Object Category" href="#objectcategory" role="tab" data-toggle="tab">
+            Object Category
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" title=" Object Scheme" href="#objectscene" role="tab" data-toggle="tab">
+            Object Scheme
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" title="Image Settings" href="#Image" role="tab" data-toggle="tab">
+            Image Sett..
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content tab-space">
+        <div class="tab-pane active" id="objectcategory">
+          <div class="search-container">
+            <form>
+              <input type="text" placeholder="Search.." name="search" [(ngModel)]="search" autocomplete="off" />
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+          <div class="categoryList">
+            <ul>
+              <li class="box" *ngFor="let cat of object_Category | Filter: search">
+                <div><i class="fa fa-user"></i></div>
+                <div>
+                  <p>{{ cat.Category }}</p>
+                </div>
+                <div>
+                  <p>{{ cat.count }}</p>
+                </div>
+              </li>
+              <div *ngIf="(object_Category | Filter: search).length === 0" style="color: red; font-weight: bold">
+                No Records Found
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-pane" id="objectscene">
+          <br />
+          <p>Object Scheme is coming</p>
+          <ul></ul>
+        </div>
+        <div class="tab-pane" id="Image">
+          <br />
+          <p>Image setting is coming</p>
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+    <div class="annotaionTools">
+      <!-- <div class="tools d-flex justify-content-around justify-space-betweeen"> -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#shapes" aria-expanded="false"
+              aria-controls="basicshapes">
+              <h5 style="text-align: center">Annotation Tools</h5>
+            </a>
+          </div>
+        </div>
+        <div id="shapes" data-parent="#accordion" class="panel-collapse collapse">
+          <div class="panel-body">
+            <div class="row nopadding">
+              <button (click)="selectShape('Line')" type="button"  class="btn btn-defaultcol-md-3 shape"><img
+                  src="assets/images/line.png" width="24" height="24"></button>
+              <button (click)="selectShape('Rectangle')" type="button"  class="btn btn-default col-md-3 shape"
+                ><img src="assets/images/rectangle.png" width="24"
+                  height="24"></button>
+                  <button (click)="selectShape('PolyLine')" type="button"  class="btn btn-default col-md-3 shape"
+               ><img src="assets/images/polyline.png" width="24"
+                  height="24"></button>
+            </div>
+            <div class="row nopadding">
+              <button (click)="selectShape('Ellipse')" type="button" class="btn btn-default col-md-3 shape"><img
+                  src="assets/images/ellipse.png" width="24" height="24"></button>
+              <button (click)="selectShape('Path')" type="button" class="btn btn-default col-md-3 shape"><img
+                  src="assets/images/path.png" width="24" height="24"></button>
+              <button (click)="selectShape('Square')" type="button" class="btn btn-default col-md-3 shape"><img
+                  src="assets/images/square.png" width="24" height="24"></button>
+            </div>
+          
+              <!-- class="btn btn-outline-primary col-md-3 shape" -->
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
