@@ -7,12 +7,11 @@ import { ApiService } from "../../services/api.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  current_user:any;
   constructor(private api: ApiService,private route:Router) {}
   ngOnInit() {
     this.Get_login_details();
   }
-  current_user:any;
   Get_login_details():void {
     this.api.Currentuser.subscribe((results) => {
       this.current_user = results;
