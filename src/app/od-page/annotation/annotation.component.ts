@@ -8,6 +8,7 @@ import {
   ViewContainerRef,
   Injector,
   ViewChild,
+  OnDestroy,
 } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ShapeType, ToolType } from "../../_models/shape-types";
@@ -18,21 +19,28 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from "@angular/material/snack-bar";
+import { Subscription,Subject } from 'rxjs';
+
 import { Input } from "@angular/core";
-import { Subject } from "rxjs";
+
+import { ActivatedRoute, Router } from "@angular/router";
+import { DataService } from "../../services/dataservice.service";
 export class Shape {
   type: string;
   x: number;
   y: number;
-  w: number;
-  h: number;
+  width: number;
+  height: number;
+  shape:string;
+  text:string;
 }
 @Component({
   selector: "app-annotation",
   templateUrl: "./annotation.component.html",
   styleUrls: ["./annotation.component.scss"],
 })
-export class AnnotationComponent implements OnInit {
+export class AnnotationComponent implements OnInit,OnDestroy  {
+  subscription: Subscription;
   Object_class:any;
   Scene_level: any;
   current_user: any;
@@ -42,6 +50,17 @@ export class AnnotationComponent implements OnInit {
   selectedTool: ToolType;
   isSelectingPoints: boolean = false;
   public search: any = "";
+  click = false; // flag to indicate when shape has been clicked
+  clickX;
+  clickY; // stores cursor location upon first click
+  moveX = 0;
+  moveY = 0; // keeps track of overall transformation
+  lastMoveX = 0;
+  lastMoveY = 0; // stores previous transformation (move)
+  elementWithFocus = null;
+  shape_list;
+  type = "rectangle";
+  text: "car";
   object_Category = [
     {
       colorbox: "pink",
@@ -69,59 +88,102 @@ export class AnnotationComponent implements OnInit {
       count: 4,
     },
   ];
+
+ 
   horizontalPosition: any = "7083c - 720g";
   @ViewChild("videoPlayer", { static: false }) videoplayer: ElementRef;
   isPlay: boolean = false;
   @ViewChild("myPinch", { static: false }) myPinch;
+  widths=400;
   zoomIn() {
-    this.myPinch.zoomIn();
-  }
-  zoomOut() {
-    this.myPinch.zoomOut();
-  }
+    if(this.widths == 700){
+    }
+      else{
+      this.widths = (this.widths + 50);}
+    } 
+  
+  zoomOut(){
+    if(this.widths == 400){
+    } else{
+      this.widths = (this.widths - 50);
+    }
+}
   toggleVideo(event: any) {
     this.videoplayer.nativeElement.play();
   }
-  playPause() {
-    var myVideo: any = document.getElementById("my_video_1");
-    if (myVideo.paused) myVideo.play();
-    else myVideo.pause();
-  }
 
-  makeBig() {
-    var myVideo: any = document.getElementById("my_video_1");
-    myVideo.width = 560;
-  }
+  interval:any;
+  imageSource: any =
+    'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg';
+  images = [
+    'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+    'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
+    'https://www.gettyimages.com/gi-resources/images/500px/983794168.jpg',
+    'https://st.depositphotos.com/1428083/2946/i/600/depositphotos_29460297-stock-photo-bird-cage.jpg',
+    'https://www.whatsappimages.in/wp-content/uploads/2021/01/Boys-Feeling-Very-Sad-Images-Pics-Downlaod.jpg'
+  ];
+  timeLeft: number = 0;
+  project_names:any;
+  constructor(private datService: DataService,private api: ApiService,
+    private route: ActivatedRoute,
+    private router: Router) {
+   
 
-  makeSmall() {
-    var myVideo: any = document.getElementById("my_video_1");
-    myVideo.width = 320;
-  }
-
-  makeNormal() {
-    var myVideo: any = document.getElementById("my_video_1");
-    myVideo.width = 420;
-  }
-
-  skip(value) {
-    let video: any = document.getElementById("my_video_1");
-    video.currentTime += value;
-  }
-
-  restart() {
-    let video: any = document.getElementById("my_video_1");
-    video.currentTime = 0;
-  }
-  constructor(private api: ApiService) { }
-  type = "rectangle";
+}
   ngOnInit() {
+    this.subscription = this.datService.projectIdId$.subscribe(ProjectId => {
+      this.project_names = ProjectId; 
+    });
+  
     this.Get_login_details();
     this.GetObjectLevel();
     this.GetSceneLevel();
-    //draw image on canvas
-    this.setType("rectangle");
+    //draw image on svg
+    this.setType("Rectangle");
   }
-  
+  onGoToPage2(){
+    this.datService.setId(this.project_names)
+    console.log(this.project_names,"jjj");
+    this.router.navigate(['/Task_list'], { queryParams: { project_name: this.project_names }});
+
+  }
+  play() {
+    this.timeLeft = this.images.length - 1;
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        this.imageSource = this.images[this.timeLeft];
+      } else {
+        clearInterval(this.interval);
+      }
+    }, 1000);
+  }
+
+  previous() {
+    if (this.timeLeft === 0) {
+      this.timeLeft = this.images.length - 1;
+    } else {
+      this.timeLeft = this.timeLeft - 1;
+    }
+    this.imageSource = this.images[this.timeLeft];
+  }
+
+  next() {
+    if (this.timeLeft === this.images.length - 1) {
+      this.timeLeft = 0;
+    } else {
+      this.timeLeft = this.timeLeft + 1;
+    }
+    this.imageSource = this.images[this.timeLeft];
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
   GetObjectLevel():void {
     this.api.GetObjectLevels().subscribe((results) => {
       this.Object_class = results;
@@ -142,6 +204,8 @@ export class AnnotationComponent implements OnInit {
   }
   //draw
   selectShape(shapeType: string): void {
+    this.click = true
+    this.shapeType = shapeType;
     this.selectedShape = ShapeType[shapeType];
     this.shapeValue = ShapeType[this.selectedShape];
     this.isSelectingPoints = false;
@@ -150,7 +214,7 @@ export class AnnotationComponent implements OnInit {
 
  
   @Input() shapesToDraw: Shape[] = [];
-  shapeType = "rectangle";
+  shapeType = "Rectangle";
   setType(type: string) {
     this.shapeType = type;
   }
@@ -158,33 +222,41 @@ export class AnnotationComponent implements OnInit {
   // the shape being just drawn
   createdShape: Shape;
   startDrawing(evt: MouseEvent) {
-    evt.preventDefault();
+    console.log("tettts");
+    let draw = true;
+    if(this.shapeValue == "Rectangle"){
+     evt.preventDefault();
     this.createdShape = {
       type: this.shapeType,
       x: evt.offsetX,
       y: evt.offsetY,
-      w: 0,
-      h: 0,
+      width: 0,
+      height: 0,
+      shape:'s',
+      text:this.text
     };
-    this.shapesToDraw.push(this.createdShape);
-  }
-
-  keepDrawing(evt: MouseEvent) {
-    if (this.createdShape) {
-      this.currentShape.next(this.createdShape);
-      this.createdShape.w = evt.offsetX - this.createdShape.x;
-      this.createdShape.h = evt.offsetY - this.createdShape.y;
+    if(this.createdShape.height>=0){
+      draw = false;
+      this.shapesToDraw.push(this.createdShape);
     }
+   
+    console.log(this.shapesToDraw,"this.shapesToDraw");
   }
-  click = false; // flag to indicate when shape has been clicked
-  clickX;
-  clickY; // stores cursor location upon first click
-  moveX = 0;
-  moveY = 0; // keeps track of overall transformation
-  lastMoveX = 0;
-  lastMoveY = 0; // stores previous transformation (move)
-  elementWithFocus = null;
-  shape_list;
+  }
+  keepDrawing(evt: MouseEvent) {
+    console.log(12);
+    if (this.createdShape) {
+      console.log("keepDrawing");
+      this.currentShape.next(this.createdShape);
+      this.createdShape.width = evt.offsetX - this.createdShape.x;
+      this.createdShape.height = evt.offsetY - this.createdShape.y;
+  }
+  }
+ 
+  Change_object_Cla(item:any){
+    this.text = item.target.value;
+    console.log( this.text,"jj");
+  }
   mouseDown(evt: any, shape) {
     this.shape_list = shape;
     evt.preventDefault();
@@ -203,12 +275,15 @@ export class AnnotationComponent implements OnInit {
     }
   }
   remove(evt: any) {
+    console.log(evt, "nnnn");
     this.shapesToDraw = this.shapesToDraw.filter(function (item) {
-      return item.w !== evt.w && item.h !== evt.h;
+      return item.width !== evt.width && item.height !== evt.height;
     });
-    console.log(this.shapesToDraw, "nnnn");
+    console.log(this.shapesToDraw, "kk");
   }
   Move(item: any, st: string) {
     console.log("item");
   }
 }
+
+

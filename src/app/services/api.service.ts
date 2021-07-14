@@ -9,28 +9,23 @@ export const CONNECTION_TYPE = new InjectionToken<string>('ConnectionType');
 export class ApiService {
 
   constructor(private _http:HttpClient) {
-    this.Login_user();
    }
-
+   ngOnInit() {
+    
+  }
   private user = new BehaviorSubject<any>(null);
-   
   Currentuser = this.user.asObservable();
 
-  Login_user() {
-    this.user.next(JSON.parse(localStorage.getItem('users')));
+  Login_user(users: object) {
+    this.user.next(users);
 }
-// login(Credential:any):Observable<any>{
-//   return this._http.post("http://localhost:3000/login_api",Credential);
-// }
-// Gettask_list(): Observable<any>{
-// return this._http.get("http://localhost:3000/Taskfile_list");
-// }
+
+
 Gettask_list(): Observable<any>{
   return this._http.get("http://localhost:8000/getTaskFilesList");
   }
   
   login(user): Observable<any>{
-    console.log(user);
     return this._http.post("http://127.0.0.1:8000/loginuser/", user);
     }
   GetObjectLevels(): Observable<any>{
@@ -39,6 +34,9 @@ Gettask_list(): Observable<any>{
   GetSceneLevels(): Observable<any>{
     return this._http.get("http://localhost:8000/getScenelevel");
   }
-
+ 
+  getmarking(project:any): Observable<any>{
+    return this._http.post("http://localhost:8000/getScenelevel",project);
+  }
 
 }

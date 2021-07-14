@@ -1,59 +1,69 @@
 <app-header></app-header>
 <div class="container-fluid">
   <div class="col-md-12 taskSelect m-4">
-    
-    <form [formGroup]="projec_forms" (ngSubmit)="projectDetails_submit(projec_forms.value)">
-    <div class="row">
-      <div class="projectSelect col-md-3">
-      
-        <div class="form-group">
-          <label for="file">All Projects</label>
-          <ng-select 
-                   [items]="Project_list"
-                   bindLabel="p_name"
-                   bindValue="p_name"
-                   labelForId="Projcet"
-                   [multiple]="true"
-                   placeholder="Select Project"
-                   clearAllText="Clear"
-                   formControlName="Project_list_name">
-        </ng-select>
-         
+    <form
+      [formGroup]="projec_forms"
+      (ngSubmit)="projectDetails_submit(projec_forms.value)"
+    >
+      <div class="row">
+        <div class="projectSelect col-md-3">
+          <div class="form-group">
+            <label for="file">All Projects</label>
+            <ng-select
+              [items]="Project_list"
+              bindLabel="p_name"
+              bindValue="p_name"
+              labelForId="Projcet"
+              [multiple]="false"
+              placeholder="Select Project"
+              clearAllText="Clear"
+              formControlName="Project_list_name"
+              (change)="onChange(projec_forms.value.Project_list_name)"
+            >
+            </ng-select>
+          </div>
         </div>
-      </div>
 
-      <div class="projectSelect col-md-3">
-        <div class="form-group">
-          <label for="featur">Marking Feature</label>
-          <select class="form-control" id="featur" formControlName="Marking_feature">
-            <option  [ngValue]="null" disabled>Select Marking</option>
-            <option>2D Object Detection</option>
-            <option>3D Point cloud</option>
-            <option>Lane Detection</option>
-            <option>TSR</option>
-            <option>Road Boundry</option>
-          </select>
+        <div class="projectSelect col-md-3">
+          <div class="form-group">
+            <label for="featur">Marking Feature</label>
+            <select
+              class="form-control"
+              id="featur"
+              formControlName="Marking_feature"
+            >
+              <option [ngValue]="null" disabled>Select Marking</option>
+              <option *ngFor="let test of marking" [ngValue]="test">
+                {{ test }}
+              </option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="projectSelect col-md-3">
-        <div class="form-group">
-          <label for="version">Tool Version</label>
-          <select class="form-control" id="version" formControlName="Tool_version_name">
-            <option  [ngValue]="null" disabled>Select Tool Version</option>
-            <option>1.0</option>
-            <option>1.1</option>
-            <option>1.2</option>
-          </select>
+        <div class="projectSelect col-md-3">
+          <div class="form-group">
+            <label for="version">Tool Version</label>
+            <select
+              class="form-control"
+              id="version"
+              formControlName="Tool_version_name"
+            >
+              <option [ngValue]="null" disabled>Select Tool Version</option>
+              <option>1.0</option>
+              <option>1.1</option>
+              <option>1.2</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="load d-flex justify-content-center">
-        <button type="submit" class="btn btn-dark" [disabled]="projec_forms.invalid">
+      <div class="load d-flex justify-content-center">
+        <button
+          type="submit"
+          class="btn btn-dark"
+          [disabled]="projec_forms.invalid">
           Load
         </button>
       </div>
     </form>
   </div>
 </div>
-

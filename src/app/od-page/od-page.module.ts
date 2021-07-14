@@ -8,15 +8,16 @@ import { ShredModule } from '../_Pipe/shared.modules';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModules } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxSvgModule } from 'ngx-svg';
 @NgModule({
   declarations: [ODPageComponent, AnnotationComponent, ProjectListComponent],
   imports: [
     CommonModule,ODPageRoutingModule,
   ShredModule,
   PinchZoomModule,
-  NgSelectModule,SharedModules
+  NgSelectModule,SharedModules,NgxSvgModule
   ],
- 
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class ODPageModule { }

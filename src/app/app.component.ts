@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
   isConnectionSlow: boolean = false;
 
   constructor(
-    private connectionService: ConnectionService,
+    private connectionService: ConnectionService,private api:ApiService,
     @Inject(CONNECTION_TYPE) private connectionType: string
   ) {
     this.isConnectionSlow = this.connectionType === "2g" ? true : false;
@@ -62,5 +62,9 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  ngOnInit() {}
+  ngOnInit() {
+    if (localStorage.getItem("users")) {
+      this.api.Login_user(JSON.parse(localStorage.getItem('users')));
+    }
+  }
 }

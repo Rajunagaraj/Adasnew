@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute } from '@angular/router'; 
 import { ApiService } from "../services/api.service";
 import { Router } from '@angular/router';
+import { DataService } from "../services/dataservice.service";
 @Component({
   selector: "app-od-page",
   templateUrl: "./od-page.component.html",
@@ -9,7 +11,9 @@ import { Router } from '@angular/router';
 })
 export class ODPageComponent implements OnInit {
   model: any = {};
-  constructor(private api: ApiService,private route:Router) {}
+  constructor(private api: ApiService,private route:Router,private routed: ActivatedRoute,private sharedservice:DataService) {
+   
+  }
   Priority_level = [
     { Priority: "Highest" },
     { Priority: "Medium" },
@@ -21,8 +25,13 @@ export class ODPageComponent implements OnInit {
     { status: "Completed" },
   ];
   File_Name_Number: any;
+  Project_name:any
   ngOnInit() {
     this.gettask_list();
+    this.routed.queryParamMap.subscribe(params => { 
+  this.Project_name = params.get('project_name');
+  this.sharedservice.setId( this.Project_name);
+});       
   }
   Taskfile_list: any;
   File_Names: any = "";
