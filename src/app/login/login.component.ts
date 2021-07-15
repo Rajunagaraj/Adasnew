@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
       { "firstName": username, "password": password }
     // if(Object.keys(this.user).length !== 0){
     this.api.login(userdetails).subscribe((data: any) => {
-      if (data == "Login Succesfull") {
+      if (data.status == "200") {
         localStorage.setItem('users', JSON.stringify(userdetails['firstName']));
         this.api.Login_user(JSON.parse(localStorage.getItem('users')))
         this.route.navigate(['/Project_list']);

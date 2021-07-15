@@ -20,11 +20,9 @@ export class ApiService {
     this.user.next(users);
 }
 
-
-Gettask_list(): Observable<any>{
-  return this._http.get("http://localhost:8000/getTaskFilesList");
-  }
-  
+  Gettask_list(project_name): Observable<any>{
+    return this._http.get(`http://localhost:8000/gettaskfilesfilteredonprojects/?project_name=${project_name}`);
+    }
   login(user): Observable<any>{
     return this._http.post("http://127.0.0.1:8000/loginuser/", user);
     }
@@ -34,9 +32,14 @@ Gettask_list(): Observable<any>{
   GetSceneLevels(): Observable<any>{
     return this._http.get("http://localhost:8000/getScenelevel");
   }
+
+  GetprojectList(): Observable<any>{
+    return this._http.get("http://localhost:8000/getProjectFilesname");
+  }
  
-  getmarking(project:any): Observable<any>{
-    return this._http.post("http://localhost:8000/getScenelevel",project);
+  getmarking(project_name:any): Observable<any>{
+    console.log(project_name);
+    return this._http.get(`http://localhost:8000/getProjectFilesdetails/?project_name=${project_name}`);
   }
 
 }

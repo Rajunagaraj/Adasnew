@@ -18,10 +18,14 @@ import {
   styleUrls: ["./project-list.component.scss"],
 })
 export class ProjectListComponent implements OnInit {
+ 
   projec_forms: FormGroup;
   Project_list: Project_list[] = [];
-  peopleLoading = false;
-  marking: any = [];
+  Loading = false;
+  marking = [];
+  toolversion = [];
+  Project_file_upload:FormGroup;
+  
   constructor(
     private route: Router,
     private api: ApiService,
@@ -35,14 +39,44 @@ export class ProjectListComponent implements OnInit {
       Marking_feature: [null, Validators.required],
       Tool_version_name: [null, Validators.required],
     });
-
     this.Project_list_call();
+
+    this.Project_file_upload = new FormGroup({
+      Project_list: new FormControl('', [Validators.required]),
+      file: new FormControl('', [Validators.required]),
+      fileSource: new FormControl('', [Validators.required])
+    });
+  }
+  get f(){
+    return this.Project_file_upload.controls;
+  }
+     
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log(file,"formData");
+      this.Project_file_upload.patchValue({
+        fileSource: file
+      });
+    }
+  }
+  submit(){
+    const formData = new FormData();
+    formData.append('file', this.Project_file_upload.get('fileSource').value);
+    formData.append('project_name', this.Project_file_upload.get('Project_list').value);
+    console.log(formData);
+   
+    // this.http.post('http://localhost:8001/upload', formData)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert('Uploaded Successfully.');
+    //   })
   }
   private Project_list_call() {
-    this.peopleLoading = true;
+    this.Loading = true;
     this.dataService.getPeople().subscribe((x) => {
       this.Project_list = x;
-      this.peopleLoading = false;
+      this.Loading = false;
     });
   }
   customSearchFn(term: string, item: Project_list) {
@@ -54,18 +88,34 @@ export class ProjectListComponent implements OnInit {
       queryParams: { project_name: this.projec_forms.value.Project_list_name },
     });
   }
-  onChange(project_name_list: any) {
-    let project_name = { project_name: project_name_list };
-    var names =
-      "'2D Object Detection', '3D Point cloud', 'Lane Detection','TSR','Road Boundry'";
-    var Arr = names.split(",");
-    Arr.forEach((item) => {
-      let test = item.replace(/"|'/g, "");
-      this.marking.push(test);
-      console.log(this.marking, "names", item);
+  Getmarking_Change(project_name_list: any) {
+    this.marking = [];
+    this.toolversion=[];
+    this.projec_forms.patchValue({
+      Marking_feature: null,
+      Tool_version_name:null
+     
+   });
+   
+    this.api.getmarking(project_name_list).subscribe((x) => {
+      let items = x[0].project_Feature;
+      var Arr = items.split(',');
+      Arr.forEach(item => {
+        let test = item.replace(/"|'/g, '');
+        this.marking.push(test)
+ 
+      });
+      this.Loading = false;
+      let toolv = x[0].Tool_version;
+      let arr1 = toolv.split(',');
+      arr1.forEach(item => {
+        let test = item.replace(/"|'/g, '');
+        this.toolversion.push(test)
+ 
+      });
     });
-    this.api.getmarking(project_name).subscribe((x) => {
-      this.peopleLoading = false;
-    });
+ 
+    this.Loading = false;
+ 
   }
 }

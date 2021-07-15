@@ -1,25 +1,14 @@
 <app-header></app-header>
-<div class="container-fluid">
+<div class="container">
   <div class="col-md-12 taskSelect m-4">
-    <form
-      [formGroup]="projec_forms"
-      (ngSubmit)="projectDetails_submit(projec_forms.value)"
-    >
+    <form [formGroup]="projec_forms" (ngSubmit)="projectDetails_submit(projec_forms.value)">
       <div class="row">
         <div class="projectSelect col-md-3">
           <div class="form-group">
             <label for="file">All Projects</label>
-            <ng-select
-              [items]="Project_list"
-              bindLabel="p_name"
-              bindValue="p_name"
-              labelForId="Projcet"
-              [multiple]="false"
-              placeholder="Select Project"
-              clearAllText="Clear"
-              formControlName="Project_list_name"
-              (change)="onChange(projec_forms.value.Project_list_name)"
-            >
+            <ng-select [items]="Project_list" bindLabel="p_name" bindValue="p_name" labelForId="Projcet"
+              [multiple]="false" placeholder="Select Project" clearAllText="Clear" formControlName="Project_list_name"
+              (change)="Getmarking_Change(projec_forms.value.Project_list_name)">
             </ng-select>
           </div>
         </div>
@@ -27,43 +16,48 @@
         <div class="projectSelect col-md-3">
           <div class="form-group">
             <label for="featur">Marking Feature</label>
-            <select
-              class="form-control"
-              id="featur"
-              formControlName="Marking_feature"
-            >
+            <select class="form-control" id="featur" formControlName="Marking_feature">
               <option [ngValue]="null" disabled>Select Marking</option>
-              <option *ngFor="let test of marking" [ngValue]="test">
-                {{ test }}
+              <option *ngFor="let feature of marking" [ngValue]="feature">
+                {{ feature }}
               </option>
             </select>
           </div>
         </div>
-
         <div class="projectSelect col-md-3">
           <div class="form-group">
             <label for="version">Tool Version</label>
-            <select
-              class="form-control"
-              id="version"
-              formControlName="Tool_version_name"
-            >
+            <select class="form-control" id="version" formControlName="Tool_version_name">
               <option [ngValue]="null" disabled>Select Tool Version</option>
-              <option>1.0</option>
-              <option>1.1</option>
-              <option>1.2</option>
+              <option *ngFor="let tool of toolversion" [ngValue]="tool">
+                {{ tool }}
+              </option>
             </select>
           </div>
         </div>
       </div>
-      <div class="load d-flex justify-content-center">
-        <button
-          type="submit"
-          class="btn btn-dark"
-          [disabled]="projec_forms.invalid">
-          Load
-        </button>
-      </div>
+     
+      <div class="load row  d-flex justify-content-center">
+       <button type="submit" class="btn btn-default btn-rounded" [disabled]="projec_forms.invalid"> Load</button> 
+    </div>
     </form>
   </div>
+
+  <!-- <form [formGroup]="Project_file_upload" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="Project_name">Project Name</label>
+      <input formControlName="Project_list" id="Project_name" type="text" class="form-control" />
+      <div *ngIf="f.Project_list.touched && f.Project_list.invalid" class="alert alert-danger">
+        <div *ngIf="f.Project_list.errors.required">Name is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="file">File</label>
+      <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)" />
+      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+        <div *ngIf="f.file.errors.required">File is required.</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form> -->
 </div>

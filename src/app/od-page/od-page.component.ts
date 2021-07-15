@@ -10,7 +10,14 @@ import { DataService } from "../services/dataservice.service";
   styleUrls: ["./od-page.component.scss"],
 })
 export class ODPageComponent implements OnInit {
-  model: any = {};
+  File_Name_Number: any;
+  Project_name:any
+  Taskfile_list: any;
+  File_Names: any = "";
+  Status: any = "";
+  Prioritys: any = "";
+  createddate: any;
+  filterdOptions: any;
   constructor(private api: ApiService,private route:Router,private routed: ActivatedRoute,private sharedservice:DataService) {
    
   }
@@ -24,23 +31,17 @@ export class ODPageComponent implements OnInit {
     { status: "InProgress" },
     { status: "Completed" },
   ];
-  File_Name_Number: any;
-  Project_name:any
-  ngOnInit() {
-    this.gettask_list();
-    this.routed.queryParamMap.subscribe(params => { 
-  this.Project_name = params.get('project_name');
-  this.sharedservice.setId( this.Project_name);
-});       
+
+  ngOnInit() { 
+    this.Project_name = localStorage.getItem("projectName");
+  this.routed.queryParamMap.subscribe(params => { 
+    this.Project_name = params.get('project_name')}); 
+    localStorage.setItem('projectName', this.Project_name)
+    this.gettask_list(this.Project_name);
   }
-  Taskfile_list: any;
-  File_Names: any = "";
-  Status: any = "";
-  Prioritys: any = "";
-  createddate: any;
-  filterdOptions: any;
-  gettask_list() {
-    this.api.Gettask_list().subscribe((data): any => {
+
+  gettask_list(project_name) {
+    this.api.Gettask_list(project_name).subscribe((data): any => {
       this.Taskfile_list = data;
       this.filterdOptions = this.Taskfile_list;
       this.Task_filter_dropdwon(data);

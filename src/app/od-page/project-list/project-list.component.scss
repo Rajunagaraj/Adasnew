@@ -4,9 +4,11 @@
 }
 .load{
     margin: 100px;
-    button{
+    .btn.btn-rounded{
         padding: 10px 40px;
-        border-radius: 10px;
+        border-radius: 30px;
+        background-color: #0a1f33;
+        color: #fff;
     }
 }
 button{
@@ -17,7 +19,7 @@ button{
     position: relative;
     top:20px;
 }
-.taskSelect .form-group label{
+ Select .form-group label{
     // position: absolute;
     // background: #fff;
     // padding: 0 10px;
@@ -25,3 +27,9 @@ button{
     // bottom: 20px;
     // color: #007bff;
 }
+.active {
+    color: #009fdb;
+    font-family: font-bold;
+    }
+    
+    

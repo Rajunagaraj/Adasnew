@@ -8,11 +8,9 @@
     >
       <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/OD_Page" routerLinkActive="active"
-            >Task List</a
-          >
+          <a  class="nav-link" routerLinkActive="active" 
+          routerLink="/Task_list" [queryParams]="{project_name: Project_name}">Task List</a>
+         
         </li>
         <li class="nav-item">
           <a
@@ -101,7 +99,7 @@
             <tr class="table_header1"  *ngFor="let record of filterdOptions; let srn=index">
               <th scope="row">{{srn+1}}</th>
               <td>{{record.File_Name}}</td>
-              <td>{{record.project_Name}}</td>
+              <td>{{record.project_name}}</td>
               <td>{{record.Task_level}}</td>
               <td>{{record.Priority}}</td>
               <td>{{record.Created_Date}}</td>

@@ -12,17 +12,20 @@
     <li></li>
     <li><a href="#" (click)="$event.preventDefault()">Export</a></li>
     <li>
-      <a href="javascript: void(0);" (click)="!!onGoToPage2()">Go_To_TaskPage
-      </a>
+      <a routerLink="." (click)="onGoToPage2()">Go_To_TaskPage </a>
     </li>
   </ul>
 </div>
-
 <div class="row">
   <div class="col-lg-3 col-md-3 ProjectContent-left">
     <ul class="nav nav-pills" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" href="#objectLevel" role="tab" data-toggle="tab">
+        <a
+          class="nav-link active"
+          href="#objectLevel"
+          role="tab"
+          data-toggle="tab"
+        >
           Object Level
         </a>
       </li>
@@ -33,7 +36,11 @@
       </li>
     </ul>
     <div class="tab-content tab-space">
-      <div class="tab-pane active" id="objectLevel" style="background-color: #fff">
+      <div
+        class="tab-pane active"
+        id="objectLevel"
+        style="background-color: #fff"
+      >
         <form>
           <table class="table table-bordered">
             <thead>
@@ -49,38 +56,72 @@
               </tr>
               <tr>
                 <td>Object Class</td>
-                <td> <select style="border: none; outline:0px;width : 150px" (change)="Change_object_Cla($event)" >
-                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.objectClass == 'CAR'" [ngValue]="Object_cla.objectClass">
-                      {{Object_cla.objectClass}} </option>
-                  </select></td>
+                <td>
+                  <select
+                    style="border: none; outline: 0px; width: 150px"
+                    (change)="Change_object_Cla($event)"
+                  >
+                    <option
+                      *ngFor="let Object_cla of Object_class"
+                      [selected]="Object_cla.objectClass == 'CAR'"
+                      [ngValue]="Object_cla.objectClass"
+                    >
+                      {{ Object_cla.objectClass }}
+                    </option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>POSE</td>
-                <td> <select style="border: none; outline:0px;width : 150px">
-                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.pose == 'Left'">
-                      {{Object_cla.pose}} </option>
-                  </select></td>
+                <td>
+                  <select style="border: none; outline: 0px; width: 150px">
+                    <option
+                      *ngFor="let Object_cla of Object_class"
+                      [selected]="Object_cla.pose == 'Left'"
+                    >
+                      {{ Object_cla.pose }}
+                    </option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>Occlusion</td>
-                <td> <select style="border: none; outline:0px;width : 150px">
-                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.occlusion == 'none'">
-                      {{Object_cla.occlusion}} </option>
-                  </select></td>
+                <td>
+                  <select style="border: none; outline: 0px; width: 150px">
+                    <option
+                      *ngFor="let Object_cla of Object_class"
+                      [selected]="Object_cla.occlusion == 'none'"
+                    >
+                      {{ Object_cla.occlusion }}
+                    </option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>Lane Change</td>
-                <td> <select style="border: none; outline:0px;width : 150px">
-                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.lane_change == 'False'">
-                      {{Object_cla.lane_change}} </option>
-                  </select></td>
+                <td>
+                  <select style="border: none; outline: 0px; width: 150px">
+                    <option
+                      *ngFor="let Object_cla of Object_class"
+                      [selected]="Object_cla.lane_change == 'False'"
+                    >
+                      {{ Object_cla.lane_change }}
+                    </option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>Break Light</td>
-                <td> <select style="border: none; outline:0px;width : 150px">
-                    <option *ngFor="let Object_cla of Object_class" [selected]="Object_cla.breakLight == 'False'">
-                      {{Object_cla.breakLight}} </option>
-                  </select></td>
+                <td>
+                  <select style="border: none; outline: 0px; width: 150px">
+                    <option
+                      *ngFor="let Object_cla of Object_class"
+                      [selected]="Object_cla.breakLight == 'False'"
+                    >
+                      {{ Object_cla.breakLight }}
+                    </option>
+                  </select>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -97,45 +138,81 @@
           <tbody>
             <tr>
               <td>Light Condition</td>
-              <td><select style="border: none; outline:0px;width : 150px">
-                  <option *ngFor="let scene_lev of Scene_level" [selected]="scene_lev.objectClass == 'Day'">
-                    {{scene_lev.Light_Condition}} </option>
-                </select></td>
+              <td>
+                <select style="border: none; outline: 0px; width: 150px">
+                  <option
+                    *ngFor="let scene_lev of Scene_level"
+                    [selected]="scene_lev.objectClass == 'Day'"
+                  >
+                    {{ scene_lev.Light_Condition }}
+                  </option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>Road Type</td>
-              <td><select style="border: none; outline:0px;width : 150px">
-                  <option *ngFor="let scene_lev of Scene_level" [selected]="scene_lev.objectClass == 'Highway'">
-                    {{scene_lev.Road_Type}} </option>
-                </select></td>
+              <td>
+                <select style="border: none; outline: 0px; width: 150px">
+                  <option
+                    *ngFor="let scene_lev of Scene_level"
+                    [selected]="scene_lev.objectClass == 'Highway'"
+                  >
+                    {{ scene_lev.Road_Type }}
+                  </option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>Road_works</td>
-              <td><select style="border: none; outline:0px;width : 150px">
-                  <option *ngFor="let scene_lev of Scene_level" [selected]="scene_lev.objectClass == 'True'">
-                    {{scene_lev.Road_works}} </option>
-                </select></td>
+              <td>
+                <select style="border: none; outline: 0px; width: 150px">
+                  <option
+                    *ngFor="let scene_lev of Scene_level"
+                    [selected]="scene_lev.objectClass == 'True'"
+                  >
+                    {{ scene_lev.Road_works }}
+                  </option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>Tunnel</td>
-              <td><select style="border: none; outline:0px;width : 150px">
-                  <option *ngFor="let scene_lev of Scene_level" [selected]="scene_lev.objectClass == 'False'">
-                    {{scene_lev.Tunnel}} </option>
-                </select></td>
+              <td>
+                <select style="border: none; outline: 0px; width: 150px">
+                  <option
+                    *ngFor="let scene_lev of Scene_level"
+                    [selected]="scene_lev.objectClass == 'False'"
+                  >
+                    {{ scene_lev.Tunnel }}
+                  </option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>Weather</td>
-              <td><select style="border: none; outline:0px;width : 150px">
-                  <option *ngFor="let scene_lev of Scene_level" [selected]="scene_lev.objectClass == 'Sunny'">
-                    {{scene_lev.Weather}} </option>
-                </select></td>
+              <td>
+                <select style="border: none; outline: 0px; width: 150px">
+                  <option
+                    *ngFor="let scene_lev of Scene_level"
+                    [selected]="scene_lev.objectClass == 'Sunny'"
+                  >
+                    {{ scene_lev.Weather }}
+                  </option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>Street Condition</td>
-              <td><select style="border: none; outline:0px;width : 150px">
-                  <option *ngFor="let scene_lev of Scene_level" [selected]="scene_lev.objectClass == 'Dry'">
-                    {{scene_lev.Street_Condition}} </option>
-                </select></td>
+              <td>
+                <select style="border: none; outline: 0px; width: 150px">
+                  <option
+                    *ngFor="let scene_lev of Scene_level"
+                    [selected]="scene_lev.objectClass == 'Dry'"
+                  >
+                    {{ scene_lev.Street_Condition }}
+                  </option>
+                </select>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -145,42 +222,85 @@
   <div class="col-md-6">
     <div id="instructions" class="video-container">
       <!-- <pinch-zoom #myPinch="pinchZoom"> -->
-      <svg-container containerId="shapes" [ngClass]="{'crossicon1':shapeValue == 'Rectangle'}" (mousedown)="startDrawing($event)"
-        (mouseup)="stopDrawing($event)" (mousemove)="shapeValue == 'Rectangle'? keepDrawing($event):null;">
-        <svg-image id="zoom" [imageUrl]="imageSource" height="400" [width]="widths"></svg-image>
+      <svg-container
+        containerId="shapes"
+        [ngClass]="{ crossicon1: shapeValue == 'Rectangle' }"
+        (mousedown)="startDrawing($event)"
+        (mouseup)="stopDrawing($event)"
+        (mousemove)="shapeValue == 'Rectangle' ? keepDrawing($event) : null"
+      >
+        <svg-image
+          id="zoom"
+          [imageUrl]="imageSource"
+          height="500"
+          [width]="widths"
+        ></svg-image>
         <ng-container *ngFor="let shapes of shapesToDraw">
-          <svg-rect [classes]="shapes.shape" [height]="shapes.height" [width]="shapes.width"
-            [style.stroke-width]="shapes==(currentShape|async)?2:1" [x]="shapes.x" [y]="shapes.y" (clickEvent)="mouseDown($event,shapes)">
+          <svg-rect
+            [classes]="shapes.shape"
+            [height]="shapes.height"
+            [width]="shapes.width"
+            [style.stroke-width]="shapes == (currentShape | async) ? 2 : 1"
+            [x]="shapes.x"
+            [y]="shapes.y"
+            (clickEvent)="mouseDown($event, shapes)"
+          >
           </svg-rect>
-          <svg-text *ngIf="shapes.width>0 && shapes.height>0" [text]="shapes.text"  size="15"
-          [x]="shapes.x" [y]="shapes.y-15" dominant-baseline="top" text-anchor="left"></svg-text>
+          <svg-text
+            *ngIf="shapes.width > 0 && shapes.height > 0"
+            [text]="shapes.text"
+            size="15"
+            [x]="shapes.x"
+            [y]="shapes.y - 15"
+            dominant-baseline="top"
+            text-anchor="left"
+          ></svg-text>
         </ng-container>
-        <button (click)='play()'>Play</button>
-        <button (click)='pauseTimer()'>Pause</button>
-        <button (click)='previous()'>Previous</button>
-        <button (click)='next()'>Next</button>
-        <button (click)="zoomIn()">zoomIn</button>
-        <button (click)="zoomOut()">zoomOut</button>
       </svg-container>
+      <div class="row d-flex justify-content-center">
+      <button (click)="play()">Play</button>
+      <button (click)="pauseTimer()">Pause</button>
+      <button (click)="previous()">Previous</button>
+      <button (click)="next()">Next</button>
+      <button (click)="zoomIn()">zoomIn</button>
+      <button (click)="zoomOut()">zoomOut</button>
+    </div>
       <!-- </pinch-zoom> -->
-     
     </div>
   </div>
   <div class="col-md-3 ProjectContent-right">
     <div class="TabsContent">
       <ul class="nav nav-pills" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" title="Object Category" href="#objectcategory" role="tab" data-toggle="tab">
+          <a
+            class="nav-link active"
+            title="Object Category"
+            href="#objectcategory"
+            role="tab"
+            data-toggle="tab"
+          >
             Object Category
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" title=" Object Scheme" href="#objectscene" role="tab" data-toggle="tab">
+          <a
+            class="nav-link"
+            title=" Object Scheme"
+            href="#objectscene"
+            role="tab"
+            data-toggle="tab"
+          >
             Object Scheme
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" title="Image Settings" href="#Image" role="tab" data-toggle="tab">
+          <a
+            class="nav-link"
+            title="Image Settings"
+            href="#Image"
+            role="tab"
+            data-toggle="tab"
+          >
             Image Sett..
           </a>
         </li>
@@ -189,13 +309,22 @@
         <div class="tab-pane active" id="objectcategory">
           <div class="search-container">
             <form>
-              <input type="text" placeholder="Search.." name="search" [(ngModel)]="search" autocomplete="off" />
+              <input
+                type="text"
+                placeholder="Search.."
+                name="search"
+                [(ngModel)]="search"
+                autocomplete="off"
+              />
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
           </div>
           <div class="categoryList">
             <ul>
-              <li class="box" *ngFor="let cat of object_Category | Filter: search">
+              <li
+                class="box"
+                *ngFor="let cat of object_Category | Filter: search"
+              >
                 <div><i class="fa fa-user"></i></div>
                 <div>
                   <p>{{ cat.Category }}</p>
@@ -204,7 +333,10 @@
                   <p>{{ cat.count }}</p>
                 </div>
               </li>
-              <div *ngIf="(object_Category | Filter: search).length === 0" style="color: red; font-weight: bold">
+              <div
+                *ngIf="(object_Category | Filter: search).length === 0"
+                style="color: red; font-weight: bold"
+              >
                 No Records Found
               </div>
             </ul>
@@ -227,8 +359,13 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#shap" aria-expanded="false"
-              aria-controls="basicshapes">
+            <a
+              class="accordion-toggle collapsed"
+              data-toggle="collapse"
+              href="#shap"
+              aria-expanded="false"
+              aria-controls="basicshapes"
+            >
               <h5 style="text-align: center">Annotation Tools</h5>
             </a>
           </div>
@@ -236,20 +373,50 @@
         <div id="shap" data-parent="#accordion" class="panel-collapse collapse">
           <div class="panel-body">
             <div class="row nopadding">
-              <button (click)="selectShape('Line')" type="button" class="btn btn-defaultcol-md-3 shape"><img
-                  src="assets/images/line.png" width="24" height="24"></button>
-              <button (click)="selectShape('Rectangle')" type="button" class="btn btn-default col-md-3 shape"><img
-                  src="assets/images/rectangle.png" width="24" height="24"></button>
-              <button (click)="selectShape('PolyLine')" type="button" class="btn btn-default col-md-3 shape"><img
-                  src="assets/images/polyline.png" width="24" height="24"></button>
+              <button
+                (click)="selectShape('Line')"
+                type="button"
+                class="btn btn-defaultcol-md-3 shape"
+              >
+                <img src="assets/images/line.png" width="24" height="24" />
+              </button>
+              <button
+                (click)="selectShape('Rectangle')"
+                type="button"
+                class="btn btn-default col-md-3 shape"
+              >
+                <img src="assets/images/rectangle.png" width="24" height="24" />
+              </button>
+              <button
+                (click)="selectShape('PolyLine')"
+                type="button"
+                class="btn btn-default col-md-3 shape"
+              >
+                <img src="assets/images/polyline.png" width="24" height="24" />
+              </button>
             </div>
             <div class="row nopadding">
-              <button (click)="selectShape('Ellipse')" type="button" class="btn btn-default col-md-3 shape"><img
-                  src="assets/images/ellipse.png" width="24" height="24"></button>
-              <button (click)="selectShape('Path')" type="button" class="btn btn-default col-md-3 shape"><img
-                  src="assets/images/path.png" width="24" height="24"></button>
-              <button (click)="selectShape('Square')" type="button" class="btn btn-default col-md-3 shape"><img
-                  src="assets/images/square.png" width="24" height="24"></button>
+              <button
+                (click)="selectShape('Ellipse')"
+                type="button"
+                class="btn btn-default col-md-3 shape"
+              >
+                <img src="assets/images/ellipse.png" width="24" height="24" />
+              </button>
+              <button
+                (click)="selectShape('Path')"
+                type="button"
+                class="btn btn-default col-md-3 shape"
+              >
+                <img src="assets/images/path.png" width="24" height="24" />
+              </button>
+              <button
+                (click)="selectShape('Square')"
+                type="button"
+                class="btn btn-default col-md-3 shape"
+              >
+                <img src="assets/images/square.png" width="24" height="24" />
+              </button>
             </div>
           </div>
         </div>
