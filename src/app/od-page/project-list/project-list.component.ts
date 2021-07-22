@@ -18,14 +18,30 @@ import {
   styleUrls: ["./project-list.component.scss"],
 })
 export class ProjectListComponent implements OnInit {
- 
+  Priority_level = [
+    { Priority: "Highest" },
+    { Priority: "Medium" },
+    { Priority: "Lowest" },
+  ];
+  Status_level = [
+    { status: "Ready" },
+    { status: "InProgress" },
+    { status: "Completed" },
+  ];
+  Action_level = [
+    { action: "START" },
+    { action: "Done" },
+    { action: "Continue" },
+  ];
   projec_forms: FormGroup;
   Project_list: Project_list[] = [];
   Loading = false;
   marking = [];
   toolversion = [];
   Project_file_upload:FormGroup;
-  
+  successMessage: string;
+  title = "Assign Project for Annotation"
+  projectWasSaved = false;
   constructor(
     private route: Router,
     private api: ApiService,
@@ -44,13 +60,18 @@ export class ProjectListComponent implements OnInit {
     this.Project_file_upload = new FormGroup({
       Project_list: new FormControl('', [Validators.required]),
       file: new FormControl('', [Validators.required]),
-      fileSource: new FormControl('', [Validators.required])
+      fileSource: new FormControl('', [Validators.required]),
+      task_level: new FormControl('', [Validators.required]),
+      Status: new FormControl('', [Validators.required]),
+      Priority:new FormControl('', [Validators.required]),
+      Action:new FormControl('', [Validators.required]),
+      createddate:new FormControl('', [Validators.required])
     });
   }
   get f(){
     return this.Project_file_upload.controls;
   }
-     
+
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -64,8 +85,21 @@ export class ProjectListComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.Project_file_upload.get('fileSource').value);
     formData.append('project_name', this.Project_file_upload.get('Project_list').value);
-    console.log(formData);
-   
+    formData.append('project_name', this.Project_file_upload.get('task_level').value);
+    formData.append('project_name', this.Project_file_upload.get('Status').value);
+    formData.append('project_name', this.Project_file_upload.get('createddate').value.split("-").reverse().join("-"));
+    console.log(this.Project_file_upload.value);
+    this.Project_file_upload.reset();
+    this.Project_file_upload.patchValue({
+      Project_list: '',
+      file:'',
+      task_level:'',
+      Status:'',
+      Priority:'',
+      Action:'',
+      createddate:''
+
+   });
     // this.http.post('http://localhost:8001/upload', formData)
     //   .subscribe(res => {
     //     console.log(res);

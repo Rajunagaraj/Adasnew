@@ -9,8 +9,7 @@ import {
   Injector,
   ViewChild,
   OnDestroy,
-} from "@angular/core";
-import { NgForm } from "@angular/forms";
+} from "@angular/core"; 
 import { ShapeType, ToolType } from "../../_models/shape-types";
 import { ApiService } from "../../services/api.service";
 import * as $ from "jquery";
@@ -22,7 +21,6 @@ import {
 import { Subscription, Subject } from "rxjs";
 
 import { Input } from "@angular/core";
-
 import { ActivatedRoute, Router } from "@angular/router";
 import { DataService } from "../../services/dataservice.service";
 export class Shape {
@@ -119,7 +117,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
   constructor(
     private datService: DataService,
     private api: ApiService,
-    private route: ActivatedRoute,
+    private routed: ActivatedRoute,
     private router: Router
   ) {}
   ngOnInit() {
@@ -128,7 +126,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
     });
     this.GetObjectLevel();
     this.GetSceneLevel();
-    //draw image on svg
+    this.Get_annotation_file()
     this.setType("Rectangle");
   }
   onGoToPage2(): void {
@@ -138,6 +136,21 @@ export class AnnotationComponent implements OnInit, OnDestroy {
       queryParams: { project_name: project_names },
     });
   }
+  Get_annotation_file(){
+    this.routed.queryParamMap.subscribe(params => { 
+      let Project_name = params.get('project_name')
+      let File_Name = params.get('File_Name')
+      console.log(params,"llll");
+      this.api.Get_annotation_file(Project_name,File_Name)
+      // .subscribe((data): any => {
+      //   this.imageSource = data;
+      // });
+      // localStorage.setItem('projectName', Project_name)
+    }); 
+      
+     
+    }  
+  
   play() {
     this.timeLeft = this.images.length - 1;
     this.interval = setInterval(() => {
@@ -198,7 +211,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
     console.log("selected shape:", this.shapeValue);
   }
 
- 
+  draw
   setType(type: string) {
     this.shapeType = type;
   }
@@ -206,8 +219,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
   // the shape being just drawn
   createdShape: Shape;
   startDrawing(evt: MouseEvent) {
-    console.log("tettts");
-    let draw = true;
+     this.draw = true;
     if (this.shapeValue == "Rectangle") {
       evt.preventDefault();
       this.createdShape = {
@@ -220,7 +232,6 @@ export class AnnotationComponent implements OnInit, OnDestroy {
         text: this.text,
       };
       if (this.createdShape.height >= 0) {
-        draw = false;
         this.shapesToDraw.push(this.createdShape);
       }
 
@@ -229,12 +240,19 @@ export class AnnotationComponent implements OnInit, OnDestroy {
   }
   keepDrawing(evt: MouseEvent) {
     console.log(12);
-    if (this.createdShape) {
-      console.log("keepDrawing");
+    if(this.draw) {
+     if (this.createdShape) {
       this.currentShape.next(this.createdShape);
       this.createdShape.width = evt.offsetX - this.createdShape.x;
       this.createdShape.height = evt.offsetY - this.createdShape.y;
     }
+  }
+  }
+  stopDrawing(event: any) {
+    this.draw = false;
+    this.createdShape = null;
+    console.log("hhcch");
+    
   }
 
   Change_object_Cla(item: any) {
@@ -247,9 +265,7 @@ export class AnnotationComponent implements OnInit, OnDestroy {
     this.click = true;
     this.elementWithFocus = evt.target;
   }
-  stopDrawing(event: any) {
-    this.createdShape = null;
-  }
+
   @HostListener("document:keyup", ["$event"])
   handleDeleteKeyboardEvent(event: KeyboardEvent) {
     if (event.key === "Delete") {
@@ -267,3 +283,9 @@ export class AnnotationComponent implements OnInit, OnDestroy {
     console.log("item");
   }
 }
+
+
+
+
+
+

@@ -26,6 +26,7 @@ export class ODPageComponent implements OnInit {
     { Priority: "Medium" },
     { Priority: "Lowest" },
   ];
+ 
   Status_level = [
     { status: "Ready" },
     { status: "InProgress" },
@@ -78,7 +79,10 @@ export class ODPageComponent implements OnInit {
     this.Prioritys = "";
     this.createddate = "";
   }
-  annotation_go(){
-    this.route.navigate(['/Annotation_page']);
+  annotation_go(filename,project_names){
+    this.route.navigate(["/Annotation_page"], {
+      queryParams: { project_name:project_names,File_Name:filename },
+    });
+   
   }
 }

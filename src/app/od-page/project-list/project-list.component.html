@@ -43,21 +43,79 @@
     </form>
   </div>
 
-  <!-- <form [formGroup]="Project_file_upload" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label for="Project_name">Project Name</label>
-      <input formControlName="Project_list" id="Project_name" type="text" class="form-control" />
-      <div *ngIf="f.Project_list.touched && f.Project_list.invalid" class="alert alert-danger">
-        <div *ngIf="f.Project_list.errors.required">Name is required.</div>
+ 
+
+  <!-- <div class="project-form">
+    <div class="row justify-content-md-center">
+      <div class="col col-md-6 boxes">
+        <p class="text-lg-center"> <strong>{{ title }}</strong></p>
+        <div class="alert alert-success" *ngIf="projectWasSaved">Project successfuly saved</div>
+        <form [formGroup]="Project_file_upload" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label for="project_name">Project name</label>
+            <select name="project_name" id="project_name" class="form-control"  formControlName="Project_list">
+              <option value="" disabled selected>Please select Project Name</option>
+              <option value="BMW">BMW</option>
+              <option value="Veoneer">Veoneer</option>
+              <option value="Conti">Conti</option>
+            </select>
+            <div *ngIf="f.Project_list.touched && f.Project_list.invalid" class="alert alert-danger">
+              <div *ngIf="f.Project_list.errors.required">Project name is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" formControlName="Status" id="status">
+                <option value="" disabled selected>Please select Status</option>
+                <option *ngFor="let Status_level_v of Status_level" [attr.data-value]="Status_level_v.status">{{Status_level_v.status}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="file">Image upload to Annotate</label>
+            <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)" />
+            <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+              <div *ngIf="f.file.errors.required">File is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="task_level">Task Level</label>
+            <select name="task_level" class="form-control" formControlName="task_level">
+              <option value="" disabled selected>Please select Task level</option>
+              <option value="marker">marker</option>
+              <option value="checker">checker</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="prior">Task Priority</label>
+            <select class="form-control" id="prior" formControlName="Priority">
+              <option value="" disabled selected>Please select priority</option>
+              <option *ngFor="let Priority_v of Priority_level" [attr.data-value]="Priority_v.Priority">{{Priority_v.Priority}}</option>
+          </select>
+          </div>
+          <div class="form-group">
+            <label for="action">Task Action</label>
+            <select class="form-control" id="action" formControlName="Action">
+              <option value="" disabled selected>Please select action</option>
+              <option *ngFor="let Action_v of Action_level" [attr.data-value]="Action_v.action">{{Action_v.action}}</option>
+          </select>
+          </div>
+          <div class="form-group">
+            <label for="createdDate">Created Date</label>
+            <input
+              type="date"
+              class="form-control"
+              placeholder="Date"
+              id="createdDate"
+              name="createdDate" formControlName="createddate"
+            />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Save</button>
+          </div>
+        </form>
+  
+  
       </div>
     </div>
-    <div class="form-group">
-      <label for="file">File</label>
-      <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)" />
-      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
-        <div *ngIf="f.file.errors.required">File is required.</div>
-      </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </form> -->
+  </div> -->
 </div>

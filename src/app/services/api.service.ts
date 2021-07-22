@@ -41,5 +41,9 @@ export class ApiService {
     console.log(project_name);
     return this._http.get(`http://localhost:8000/getProjectFilesdetails/?project_name=${project_name}`);
   }
+  Get_annotation_file(project_name:any,Filename:any){
+    console.log(project_name,Filename);
+    // return this._http.get(`http://localhost:8000/getProjectFilesdetails/?project_name=${project_name}?File_Name=${Filename}`);
+  }
 
 }
