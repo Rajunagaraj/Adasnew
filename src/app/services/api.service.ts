@@ -27,10 +27,10 @@ export class ApiService {
     return this._http.post("http://127.0.0.1:8000/loginuser/", user);
     }
   GetObjectLevels(): Observable<any>{
-      return this._http.get("http://localhost:8000/getObjectlevel");
+    return this._http.get("http://localhost:8000/objectLevelAttributes");
   }
   GetSceneLevels(): Observable<any>{
-    return this._http.get("http://localhost:8000/getScenelevel");
+    return this._http.get("http://localhost:8000/sceneLevelAtrributes");
   }
 
   GetprojectList(): Observable<any>{
@@ -41,9 +41,13 @@ export class ApiService {
     console.log(project_name);
     return this._http.get(`http://localhost:8000/getProjectFilesdetails/?project_name=${project_name}`);
   }
-  Get_annotation_file(project_name:any,Filename:any){
+  // Get_annotation_file(project_name:any,Filename:any){
+  //   console.log(project_name,Filename);
+  //    return this._http.get(`http://localhost:8000/getProjectFilesdetails/?project_name=${project_name}?File_Name=${Filename}`);
+  // }
+  Get_annotation(project_name:any,Filename:any){
     console.log(project_name,Filename);
-    // return this._http.get(`http://localhost:8000/getProjectFilesdetails/?project_name=${project_name}?File_Name=${Filename}`);
-  }
+    return this._http.get(`http://localhost:8000/getAnnotationImageFile/?project_name=${project_name}&File_Name=${Filename}`);
 
+}
 }

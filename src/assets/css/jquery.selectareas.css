@@ -1,0 +1,65 @@
+.select-areas-overlay {
+	background-color: #000;
+	overflow: hidden;
+	position: relative;
+}
+:host ::ng-deep .blurred {
+	 filter: url("/assets/images/filters.svg"); 
+	/* -webkit-filter: blur(3px) !important; */
+	/* -moz-filter: blur(3px);
+	-o-filter: blur(3px); */
+	filter: blur(3px)!important;
+	position: absolute !important;
+}
+
+.select-areas-outline {
+	/* background: #ebb9b9;; */
+	border: 2px solid #ebb9b9;
+	overflow: hidden;
+}
+
+.select-areas-resize-handler {
+	background-color: #000;
+	border: 1px #fff solid;
+	height: 8px;
+	width: 8px;
+	overflow: hidden;
+	
+}
+
+.select-areas-delete-area {
+	background: url('/assets/images/bt-delete.png');
+	cursor: pointer;
+	height: 16px;
+	width: 16px;
+}
+
+.delete-area {
+	position: absolute;
+	cursor: pointer;
+	padding: 5px;
+}
+
+.info-area {
+	position: absolute;
+	cursor: pointer;
+  color: red;
+  font-weight: 600;
+  /* padding: 0px 2px 0px 2px; */
+  margin-top: 6px;
+}
+.info-area1 select {
+	
+	color: red;
+ 
+}
+.info-area1 {
+	position: absolute;
+	cursor: pointer;
+	color: #e4e712;
+  padding: 1px;
+  /* color: black; */
+  /* background-color: lightgray; */
+  font-weight: 600;
+  /* opacity: 0.4; */
+}

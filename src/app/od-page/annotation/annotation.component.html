@@ -220,52 +220,125 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div id="instructions" class="video-container">
-      <!-- <pinch-zoom #myPinch="pinchZoom"> -->
-      <svg-container
-        containerId="shapes"
-        [ngClass]="{ crossicon1: shapeValue == 'Rectangle' }"
-        (mousedown)="startDrawing($event)"
-        (mouseup)="stopDrawing($event)"
-        (mousemove)="shapeValue == 'Rectangle' ? keepDrawing($event) : null"
-      >
-        <svg-image
-          id="zoom"
-          [imageUrl]="imageSource"
-          height="500"
-          [width]="widths"
-        ></svg-image>
-        <ng-container *ngFor="let shapes of shapesToDraw">
-          <svg-rect
-            [classes]="shapes.shape"
-            [height]="shapes.height"
-            [width]="shapes.width"
-            [style.stroke-width]="shapes == (currentShape | async) ? 2 : 1"
-            [x]="shapes.x"
-            [y]="shapes.y"
-            (clickEvent)="mouseDown($event, shapes)"
+    <div id="instructions">
+      <div class="control">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button
+            type="button"
+            class="btn btn-info"
+            title="previous"
+            (click)="loadPrevImage()"
           >
-          </svg-rect>
-          <svg-text
-            *ngIf="shapes.width > 0 && shapes.height > 0"
-            [text]="shapes.text"
-            size="15"
-            [x]="shapes.x"
-            [y]="shapes.y - 15"
-            dominant-baseline="top"
-            text-anchor="left"
-          ></svg-text>
-        </ng-container>
-      </svg-container>
-      <div class="row d-flex justify-content-center">
-      <button (click)="play()">Play</button>
-      <button (click)="pauseTimer()">Pause</button>
-      <button (click)="previous()">Previous</button>
-      <button (click)="next()">Next</button>
-      <button (click)="zoomIn()">zoomIn</button>
-      <button (click)="zoomOut()">zoomOut</button>
-    </div>
-      <!-- </pinch-zoom> -->
+            <span class="oi oi-media-skip-backward">Previous</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            title="next"
+            (click)="loadNextImage()"
+          >
+            <span class="oi oi-media-skip-forward">Next</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            title="zoomIn"
+            (click)="zoomIn()"
+          >
+            zoomIn
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            title="zoomOut"
+            (click)="zoomOut()"
+          >
+            zoomOut
+          </button>
+        </div>
+      </div>
+
+      <div class="control">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <!-- <button type="button"  class="btn btn-danger" (click)="imageLoaded()">
+            <span class="oi oi-resize-both">Draw</span>
+          </button> -->
+          <button
+            type="button"
+            class="btn btn-info"
+            title="Expand by 5 pixels"
+            (click)="expandContract(5)"
+          >
+            <span class="fa fa-expand"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            title="Contract by 5 pixels"
+            (click)="expandContract(-5)"
+          >
+            <i class="fa fa-compress"></i>
+          </button>
+
+          <button type="button" class="btn btn-danger" disabled>
+            <span class="oi oi-resize-height"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="verticalExpandContract(+5)"
+          >
+            <span class="fa fa-plus"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="verticalExpandContract(-5)"
+          >
+            <span class="fa fa-minus"></span>
+          </button>
+
+          <button type="button" class="btn btn-danger" disabled>
+            <span class="oi oi-resize-width"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="HorizontalExpandContract(5)"
+          >
+            <span class="fa fa-plus"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="HorizontalExpandContract(-5)"
+          >
+            <span class="fa fa-minus"></span>
+          </button>
+        </div>
+      </div>
+      <div class="work-area-grid">
+        <div class="tools row2">
+          <div class="image-div">
+            <img
+              alt="image comes here"
+              id="img-to-annotate"
+              [src]="currImg"
+              align="center"
+              [width]="widths"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row d-flex justify-content-center">
+        <button (click)="play()">Play</button>
+        <button (click)="pauseTimer()">Pause</button>
+        <button (click)="previous()">Previous</button>
+        <button (click)="next()">Next</button>
+        <button (click)="zoomIn()">zoomIn</button>
+        <button (click)="zoomOut()">zoomOut</button>
+      </div> -->
     </div>
   </div>
   <div class="col-md-3 ProjectContent-right">
@@ -373,48 +446,28 @@
         <div id="shap" data-parent="#accordion" class="panel-collapse collapse">
           <div class="panel-body">
             <div class="row nopadding">
-              <button
-                (click)="selectShape('Line')"
-                type="button"
-                class="btn btn-defaultcol-md-3 shape"
-              >
+              <button type="button" class="btn btn-defaultcol-md-3 shape">
                 <img src="assets/images/line.png" width="24" height="24" />
               </button>
               <button
-                (click)="selectShape('Rectangle')"
+                (click)="imageLoaded()"
                 type="button"
                 class="btn btn-default col-md-3 shape"
               >
                 <img src="assets/images/rectangle.png" width="24" height="24" />
               </button>
-              <button
-                (click)="selectShape('PolyLine')"
-                type="button"
-                class="btn btn-default col-md-3 shape"
-              >
+              <button type="button" class="btn btn-default col-md-3 shape">
                 <img src="assets/images/polyline.png" width="24" height="24" />
               </button>
             </div>
             <div class="row nopadding">
-              <button
-                (click)="selectShape('Ellipse')"
-                type="button"
-                class="btn btn-default col-md-3 shape"
-              >
+              <button type="button" class="btn btn-default col-md-3 shape">
                 <img src="assets/images/ellipse.png" width="24" height="24" />
               </button>
-              <button
-                (click)="selectShape('Path')"
-                type="button"
-                class="btn btn-default col-md-3 shape"
-              >
+              <button type="button" class="btn btn-default col-md-3 shape">
                 <img src="assets/images/path.png" width="24" height="24" />
               </button>
-              <button
-                (click)="selectShape('Square')"
-                type="button"
-                class="btn btn-default col-md-3 shape"
-              >
+              <button type="button" class="btn btn-default col-md-3 shape">
                 <img src="assets/images/square.png" width="24" height="24" />
               </button>
             </div>
